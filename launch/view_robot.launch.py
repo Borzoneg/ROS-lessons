@@ -39,7 +39,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     
-    robot = "crx20ia_l"
+    robot = "ur5e"
     # robot = "r2d2"
 
     description_package = "ros_lessons"
@@ -47,8 +47,8 @@ def generate_launch_description():
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
-            # " ",PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot+".urdf"]),
-            " ",PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot+".xacro"]),
+            " ",PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot+".urdf"]),
+            # " ",PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot+".xacro"]),
         ]
     )
 

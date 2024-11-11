@@ -33,13 +33,15 @@ from launch.actions import DeclareLaunchArgument
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+import launch_ros.descriptions
 import os
+import launch
 from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
     
-    robot = "ur5e"
+    robot = "perseverance"
     # robot = "r2d2"
 
     description_package = "ros_lessons"
@@ -51,8 +53,11 @@ def generate_launch_description():
             # " ",PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot+".xacro"]),
         ]
     )
+    print(robot_description_content)
 
-    robot_description = {"robot_description": robot_description_content}    
+    parameters={'robot_description': launch_ros.descriptions.ParameterValue(launch.substitutions.Command(['xacro ', PathJoinSubstitution([FindPackageShare(description_package), robot + "/urdf/", robot + ".urdf"])]), value_type=str)}
+
+    robot_description = parameters
     rviz_config_file = PathJoinSubstitution([FindPackageShare(description_package), "config", "config.rviz"])
 
     joint_state_publisher_node = Node(
